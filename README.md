@@ -7,16 +7,21 @@
 
 default : scan Nodes, Services, Vulnerabilites
 
---details : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities</br> 
---token TOKEN : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
+__--details__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities</br> 
+__--token TOKEN__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using token
+                    __This option can also be scanned from the Worker Node__ 
   > If you haven't modified service account file or don't know your token,
-  > you can insert  --token default
+  > you can insert  __--token default__
   
---service ACCOUNT : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
+__--service ACCOUNT__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using service account
+                        __This option can also be scanned from the Worker Node__ 
   > If you haven't modified service account file or don't know your service account,
-  > you can insert  --service default
+  > you can insert  __--service default__
   
---docker : scan docker containers and Vulnerabilities only for docker
+__--proxy PORT__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities locally using proxy
+  > You have to specify the port you want to access the Api Server
+  
+__--docker__ : scan docker containers and Vulnerabilities only for docker
 
 
 
