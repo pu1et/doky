@@ -1,8 +1,8 @@
 # doky
 
-<H2>If you're running Kubernets, You can scan your Nodes, Services, Vulnerabilities even Pods.
+<h2>If you're running Kubernets, You can scan your Nodes, Services, Vulnerabilities even Pods.</h2>
 
-###options
+<h3>options</h3>
 
 default : scan Nodes, Services, Vulnerabilites
 --details : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
