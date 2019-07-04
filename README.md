@@ -9,12 +9,12 @@ default : scan Nodes, Services, Vulnerabilites
 
 __--details__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities</br> 
 __--token TOKEN__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using token</br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_This option can also be scanned from the Worker Node_</br> 
+  >_This option can also be scanned from the Worker Node_</br> 
   > If you haven't modified service account file or don't know your token,
   > you can insert  __--token default__
   
 __--service ACCOUNT__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using service account</br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_This option can also be scanned from the Worker Node_</br>  
+  >_This option can also be scanned from the Worker Node_</br>  
   > If you haven't modified service account file or don't know your service account,
   > you can insert  __--service default__
   
