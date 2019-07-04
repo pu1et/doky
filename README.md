@@ -9,7 +9,7 @@ default : scan Nodes, Services, Vulnerabilites
 
 __--details__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities</br> 
 __--token TOKEN__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using token</br> 
-                   </br> _This option can also be scanned from the Worker Node_</br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_This option can also be scanned from the Worker Node_</br> 
   > If you haven't modified service account file or don't know your token,
   > you can insert  __--token default__
   
@@ -46,11 +46,11 @@ CVE-2018-1002105</br>
 More information about Kubernetes Vulnerabilities </br> 
 
 https://www.cvedetails.com/vulnerability-list/vendor_id-15867/product_id-34016/Kubernetes-Kubernetes.html
-
+</br>
 
 
 <h3>Docker >></h3>
-</br>
+
 CVE-2017-7308</br> 
 CVE-2019-5736</br> 
 CVE-2018-15664</br> 
