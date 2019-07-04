@@ -14,7 +14,7 @@ __--token TOKEN__ : scan all Kubernetes Components (Pods, Nodes, Services) and V
   > you can insert  __--token default__
   
 __--service ACCOUNT__ : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities using service account</br> 
-  >_This option can also be scanned from the Worker Node_</br>  
+  >_This option can also be scanned from the Worker Node_
   > If you haven't modified service account file or don't know your service account,
   > you can insert  __--service default__
   
