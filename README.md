@@ -1,14 +1,14 @@
 # doky
 
-<h2>If you're running Kubernets, 
+<h2>If you're running Docker, Kubernets and both, 
   You can scan your Nodes, Services, Vulnerabilities even Pods.</h2>
 
 <h3>options</h3>
 
 default : scan Nodes, Services, Vulnerabilites
 
---details : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
---token TOKEN : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
+1 --details : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
+2 --token TOKEN : scan all Kubernetes Components (Pods, Nodes, Services) and Vulnerabilities
   > If you haven't modified service account file or don't know your token,
   > you can insert  --token default
   
@@ -16,8 +16,8 @@ default : scan Nodes, Services, Vulnerabilites
   > If you haven't modified service account file or don't know your service account,
   > you can insert  --service default
   
-If you're running docker, You can scan your containers, Vulnerabilites 
---docker : scan docker containers and Vulnerabilities
+--docker : scan docker containers and Vulnerabilities only for docker
+
 
 
 <h2>What Vulnerabilities?</h2>
