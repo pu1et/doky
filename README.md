@@ -24,16 +24,16 @@ default : scan Nodes, Services, Vulnerabilites
 
 <h3>Kubernetes >></h3>
 
-CVE-2019-9946
-CVE-2019-11243
-CVE-2019-11244
-CVE-2019-1002100
-CVE-2019-1002101
-CVE-2018-1002100
-CVE-2018-1002101
-CVE-2018-1002105
+CVE-2019-9946</br> 
+CVE-2019-11243</br> 
+CVE-2019-11244</br> 
+CVE-2019-1002100</br> 
+CVE-2019-1002101</br> 
+CVE-2018-1002100</br> 
+CVE-2018-1002101</br> 
+CVE-2018-1002105</br> 
 
-
+</br> 
 More information about Kubernetes Vulnerabilities </br> 
 
 https://www.cvedetails.com/vulnerability-list/vendor_id-15867/product_id-34016/Kubernetes-Kubernetes.html
@@ -42,12 +42,12 @@ https://www.cvedetails.com/vulnerability-list/vendor_id-15867/product_id-34016/K
 
 <h3>Docker >></h3>
 
-CVE-2017-7308
-CVE-2019-5736
-CVE-2018-15664
-CVE-2018-15514
+CVE-2017-7308</br> 
+CVE-2019-5736</br> 
+CVE-2018-15664</br> 
+CVE-2018-15514</br> 
 
-
+</br> 
 More information about Docker Vulnerabilities </br> 
 
 https://www.cvedetails.com/vulnerability-list/vendor_id-13534/product_id-28125/Docker-Docker.html
