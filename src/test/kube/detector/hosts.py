@@ -26,9 +26,6 @@ auth_lock = threading.Lock()
 global node_count
 node_count = 0
 
-class ProxyScanEvent(Event):
-    pass
-
 class HostEvent(Event):
     pass
 
@@ -82,7 +79,6 @@ class AuthVulnerability(AuthBase,Event):
 
 
 
-
 @works.hang(HostEvent)
 class HostDetector(Detector):
     def __init__(self, event):
@@ -122,6 +118,29 @@ class AuthDetector(Detector):
         token = ''
         service = ''
 
+    @staticmethod
+    def connect_host(protocol, host, port, headers=''):
+        try:
+            path = "{}://{}:{}".format(protocol,host,port)
+            r = requests.get("{}/api/v1/pods".format(path), headers=headers, verify=False)
+            r_ver = requests.get("{}/version".format(path), headers=headers, verify=False).content
+            version = json.loads(r_ver)['gitVersion']
+            works.pick_point(AuthVulnerability(version,"{}:{}".format(host,port)))
+            cluster_info = json.loads(r.content)
+            for info in cluster_info['items']:
+                service = info['spec']['containers'][0]['name']
+                image = info['spec']['containers'][0]['image']
+                host_ip = info['status']['hostIP']
+                pod_ip = info['status']['podIP']
+                if host_ip != pod_ip:
+                    works.pick_point(AuthPod("Pod", service, image, host_ip, pod_ip))
+                else:
+                    works.pick_point(AuthService("Service", service, image, host_ip, pod_ip))
+        except(requests.exceptions.ConnectionError, KeyError):
+            pass
+
+
+
     def execute(self):
         for iface in ifaceList:
             if iface not in notIface:
@@ -145,30 +164,8 @@ class AuthDetector(Detector):
             self.token = __main__.options.token
         
         logging.debug("token : {}".format(self.token))
-        headers={
-                'Authorization': self.token
-                }
-        try:
-            self.path = "https://{}:6443".format(self.host)
-            r = requests.get("{}/api/v1/pods".format(self.path),headers=headers, verify=False)
-            r_ver = requests.get("{}/version".format(self.path), headers=headers, verify=False).content
-            version = json.loads(r_ver)['gitVersion']
-            self.pick_point(AuthVulnerability(version,"{}:{}".format(self.host,self.port)))
-            cluster_info = json.loads(r.content)
-            for info in cluster_info['items']:
-                service = info['spec']['containers'][0]['name']
-                image = info['spec']['containers'][0]['image']
-                host_ip = info['status']['hostIP']
-                pod_ip = info['status']['podIP']
-                if host_ip != pod_ip:
-                    self.pick_point(AuthPod("Pod", service, image, host_ip, pod_ip))
-                else:
-                    self.pick_point(AuthService("Service", service, image, host_ip, pod_ip))
-
-        
-        except(requests.exceptions.ConnectionError, KeyError):
-            pass
+        headers={'Authorization': self.token}
+        self.connect_host("https",self.host,self.port,headers)
         return None
-
 
 
