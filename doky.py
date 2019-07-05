@@ -104,7 +104,7 @@ def main():
             works.join()
         
         if options.docker:
-            work.pick_point(DockerEvent())
+            works.pick_point(DockerEvent())
             works.join()
          
         if options.service or options.token:
