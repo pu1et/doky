@@ -1,3 +1,4 @@
+import logging
 from prettytable import ALL, PrettyTable
 from src.test.docker.printer.importer import ver, images, containers, vulns
 
@@ -13,12 +14,12 @@ class RealDockerPrinter(object):
         if image_len:
             output += self.images_table()
             if container_len:
-                output += self.containers_table()
                 print(output)
             else:
                 output += "\nThere's No Images\n"
             if vuln_len:
                 output += self.vulns_table()
+                print(output)
             else:
                 output += "\nThere's No Vulnerabilities\n"
         else:
@@ -39,7 +40,7 @@ class RealDockerPrinter(object):
         images_table.max_width = 20
         images_table.sortby = "Image"
         for image in images:
-            images_table.add_row([image.name, image.tag])
+            images_table.add_row([image.image, image.tag])
         images_ret = "\nImages\n{}\n".format(images_table)
         return images_ret
 
