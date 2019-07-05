@@ -52,6 +52,14 @@ class Service(object):
     def explain(self):
         return self.__doc__
 
+class DockerVulnerability(object):
+    def __init__(self, image, name, cvss, info):
+        self.image = image
+        self.name = name
+        self.cvss = cvss
+        self.info = info
+        self.evidence = "nothing"
+
 
 class Vulnerability(object):
     def __init__(self, component, name, category=None):
@@ -60,6 +68,7 @@ class Vulnerability(object):
         self.name = name
         self.evidence = "nothing"
         self.node = "Node"
+
 
     def get_category(self):
         if self.category:
