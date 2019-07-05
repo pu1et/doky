@@ -9,10 +9,13 @@ from src.conf.objects import Event
 from src.types import Detector
 
 
+
 class Image(Event):
-    def __init__(self, name, tag="latest"):
-        self.name = name
+    def __init__(self, image, tag="latest"):
+        self.image = image
         self.tag = tag
+        
+
 
 class Container(Event):
     def __init__(self, name, command, state):
