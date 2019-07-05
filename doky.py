@@ -35,7 +35,7 @@ from src.test.kube.detector.ports import PortDetector
 from src.test.kube.printer.kube_printer import RealPrinter
 from src.test.kube.scanner.apiserver import ApiServerScanner
 from src.test.kube.scanner.cvescanner import CVEScanner
-from src.test.kube.detector.proxy import ProxyScanEvent
+from src.test.kube.detector.kube_proxy import ProxyScanEvent
 import src
 
 
