@@ -24,8 +24,12 @@ parser.add_argument('--docker', action='store_true', help="scans only in a docke
 options = parser.parse_args()
 
 from src.test.kube.printer.kube_printer import RealPrinter
+from src.test.docker.printer.dock_printer import RealDockerPrinter
 
-printer = RealPrinter()
+if options.docker:
+    printer = RealDockerPrinter()
+else:
+    printer = RealPrinter()
 
 from src.conf.abcd import works
 from src.conf.objects import DokyPrinter, DokyWorked
@@ -36,6 +40,8 @@ from src.test.kube.printer.kube_printer import RealPrinter
 from src.test.kube.scanner.apiserver import ApiServerScanner
 from src.test.kube.scanner.cvescanner import CVEScanner
 from src.test.kube.detector.kube_proxy import ProxyScanEvent
+from src.test.docker.detector.container import DockerScanEvent
+from src.test.docker.printer.importer import DockerPrinter
 import src
 
 
@@ -104,12 +110,10 @@ def main():
             works.join()
         
         if options.docker:
-            works.pick_point(DockerEvent())
+            works.pick_point(DockerScanEvent())
             works.join()
          
         if options.service or options.token:
-            print(options.service)
-            print(options.token)
             works.pick_point(AuthScanEvent())
             works.join()
        
@@ -123,7 +127,10 @@ def main():
         doky_lock.acquire()
         if doky_work:
             doky_lock.release()
-            works.pick_point(DokyPrinter())
+            if options.docker:
+                works.pick_point(DockerPrinter())
+            else:
+                works.pick_point(DokyPrinter())
             works.join()
             works.free()
         else:
