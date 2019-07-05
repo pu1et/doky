@@ -35,6 +35,7 @@ from src.test.kube.detector.ports import PortDetector
 from src.test.kube.printer.kube_printer import RealPrinter
 from src.test.kube.scanner.apiserver import ApiServerScanner
 from src.test.kube.scanner.cvescanner import CVEScanner
+from src.test.kube.detector.proxy import ProxyScanEvent
 import src
 
 
@@ -112,10 +113,9 @@ def main():
             works.pick_point(AuthScanEvent())
             works.join()
        
-#        option.proxy=True
-#        if options.proxy:
-#            works.pick_point(ProxyScanEvent())
-#            works.join()
+        if options.proxy:
+            works.pick_point(ProxyScanEvent(options.proxy))
+            works.join()
 
     except KeyboardInterrupt:
         logging.debug("KeyBoard Interrupt")
