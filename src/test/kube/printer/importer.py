@@ -65,7 +65,7 @@ class Printer(object):
 
     def execute(self):
         printer = __main__.printer.kube_printer()
-        logging.info("\n{}\n".format("-"*10, printer))
+        logging.info("\n{}\n".format(printer))
         if __main__.options.token or __main__.options.service or __main__.options.proxy:
             __main__.printer.send_auth_data()
         else:
