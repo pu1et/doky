@@ -93,7 +93,6 @@ class RealPrinter(BasePrinter):
                 output += 'Theres No Vulnerability'
         else:
             print("\nThere's no cluster in your environment")
-        print(output)
         return output
 
     def auth_pods_table(self):
