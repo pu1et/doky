@@ -232,7 +232,6 @@ class RealPrinter(BasePrinter):
         for service in services:
             node_data = {'chk':'1', 'user_id' : USER_TOKEN, 'type_1' : service.node, 'location_1' : service.host}
             res = requests.post(URL, data=node_data)
-
         #Pod
         id_memory = list()
         if __main__.options.details:
@@ -241,22 +240,22 @@ class RealPrinter(BasePrinter):
                     pod_data = {'chk':'2', 'user_id' : USER_TOKEN, 'pod_2':service.get_name(), 'location_2':service.pod_host}
                     id_memory.append(service.pod_id)
                     res = requests.post(URL, data=pod_data)
-        
         #Service
         for service in services:
-            location_2 = str(service.host) + ':' + str(service.port) + str(service.get_path())
-            service_data = {'chk':'3', 'user_id' : USER_TOKEN, 'service_3' : service.get_name(), 'location_3' : "{]:{}{}".format(service.host, service.port, service.get_path())}
-            res = requests.post(URL, data=service_data)
+            if "Pod" not in service.get_name():
+                service_data = {'chk':'3', 'user_id' : USER_TOKEN, 'service_3' : service.get_name(), 'location_3' : "{}:{}{}".format(service.host, service.port, service.get_path())}
+                res = requests.post(URL, data=service_data)
         service_lock.release()
-
+        
         #Vulnerability
         vuln_lock.acquire()
         for vuln in vulns:
             vuln_data = {'chk':'4', 'user_id' : USER_TOKEN, 'location_4' : vuln.location(), 'category_4' : str(vuln.category.name), 'vulnerability_4': vuln.get_name(), 'description_4' : vuln.explain(), 'evidence_4' : vuln.evidence}
             res = requests.post(URL, data=vuln_data)
-
         vuln_lock.release()
-        USER_TOKEN = "user_id="+USER_TOKEN
+        
+        
+        USER_TOKEN = "user_id=" + USER_TOKEN
         plus="="*len(USER_TOKEN)
         print("\x1b[1;34m\n==============================================================================={}\x1b[1;m".format(plus))
         print("\x1b[1;34mIf you confirm Kube-Six report, Click This ==> http://hotsix.kro.kr/result.php?{}\x1b[1;m".format(USER_TOKEN))
