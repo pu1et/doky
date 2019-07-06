@@ -2,6 +2,7 @@ from __future__ import print_function
 from prettytable import ALL, PrettyTable
 import __main__
 from .importer import auth_lock,auth_pods,auth_services, services, scanners, vulns, works, service_lock, vuln_lock
+import requests
 import logging
 
 class BasePrinter(object):
@@ -197,7 +198,7 @@ class RealPrinter(BasePrinter):
         for service in services:
             if "Pod" not in service.get_name():
                 services_table.add_row([service.get_name(), "{}:{}{}".format(service.host, service.port, service.get_path())])
-        services_ret = "\nServices\n{}n\n".format(services_table)
+        services_ret = "\nServices\n{}\n".format(services_table)
         service_lock.release()
         return services_ret
 
@@ -220,22 +221,38 @@ class RealPrinter(BasePrinter):
         vuln_lock.release()
         return "\n\nVnlnerabilities\n\n{}\n".format(vuln_table)
 
+
+
     def send_data(self):
         USER_TOKEN = __main__.email.get_email()
         URL = "http://hotsix.kro.kr/re_result.php"
         service_lock.acquire()
+        
+        #Node
         for service in services:
-            node_data = {'chk':'1','token' : USER_TOKEN, 'Type_1' : 'Node/Master', 'Location_1' : service.host}
+            node_data = {'chk':'1', 'user_id' : USER_TOKEN, 'type_1' : service.node, 'location_1' : service.host}
             res = requests.post(URL, data=node_data)
+
+        #Pod
+        id_memory = list()
+        if __main__.options.details:
+            for service in services:
+                if service.pod_id not in id_memory and service.pod_host:
+                    pod_data = {'chk':'2', 'user_id' : USER_TOKEN, 'pod_2':service.get_name(), 'location_2':service.pod_host}
+                    id_memory.append(service.pod_id)
+                    res = requests.post(URL, data=pod_data)
+        
+        #Service
         for service in services:
             location_2 = str(service.host) + ':' + str(service.port) + str(service.get_path())
-            service_data = {'chk':'2','token' : USER_TOKEN, 'Service_2' : service.get_name(), 'Location_2' : location_2}
+            service_data = {'chk':'3', 'user_id' : USER_TOKEN, 'service_3' : service.get_name(), 'location_3' : "{]:{}{}".format(service.host, service.port, service.get_path())}
             res = requests.post(URL, data=service_data)
         service_lock.release()
 
+        #Vulnerability
         vuln_lock.acquire()
-        for vuln in vulnerabilities:
-            vuln_data = {'chk':'3','token' : USER_TOKEN, 'Location_3' : vuln.location(), 'Category_3' : str(vuln.category.name), 'Vulnerability_3': vuln.get_name(), 'Description_3' : vuln.explain(), 'Evidence_3' : vuln.evidence}
+        for vuln in vulns:
+            vuln_data = {'chk':'4', 'user_id' : USER_TOKEN, 'location_4' : vuln.location(), 'category_4' : str(vuln.category.name), 'vulnerability_4': vuln.get_name(), 'description_4' : vuln.explain(), 'evidence_4' : vuln.evidence}
             res = requests.post(URL, data=vuln_data)
 
         vuln_lock.release()
@@ -244,4 +261,39 @@ class RealPrinter(BasePrinter):
         print("\x1b[1;34mIf you confirm Kube-Six report, Click This ==> http://hotsix.kro.kr/result.php?{}\x1b[1;m".format(USER_TOKEN))
         print("\x1b[1;34m==============================================================================={}\x1b[1;m".format(plus))
 
+    def send_auth_data(self):
+	USER_TOKEN = __main__.email.get_email()
+        URL = "http://hotsix.kro.kr/re_result.php"
+        auth_lock.acquire()
+        
+        #Node
+        host_memory = set()
+        for auth in auth_services:
+            host_ip = str(auth.host_ip)
+            if host_ip not in host_memory:
+                node_data = {'chk':'5', 'user_id' : USER_TOKEN, 'r_node_5' : 'node', 'r_locations_5' : auth.host}
+                host_memory.add(host_ip)
+                res = requests.post(URL, data=node_data)
 
+        #Pod
+        for auth in auth_pods:
+            pod_data = {'chk':'6', 'user_id' : USER_TOKEN, 'r_pod_6': auth.pod_ip, 'r_container_image_6':auth.service,'r_image_ver_6':auth.image, 'r_node_6':auth.host}
+            res = requests.post(URL, data=pod_data)
+        
+        #Service
+        for auth in auth_services:
+            auth_data = {'chk':'7', 'user_id' : USER_TOKEN, 'r_service_7' : auth.name, 'r_container_image_7':auth.service,'r_image_ver_7':auth.image, 'r_node_7':auth.host}
+            res = requests.post(URL, data=auth_data)
+        auth_lock.release()
+
+        #Vulnerability
+        vuln_lock.acquire()
+        for vuln in vulns:
+            vuln_data = {'chk':'8', 'user_id' : USER_TOKEN, 'r_location_8' : vuln.location(), 'r_category_8' : str(vuln.category.name), 'r_vulnerability_8': vuln.get_name(), 'r_description_8' : vuln.explain(), 'r_evidence_8' : vuln.evidence}
+            res = requests.post(URL, data=vuln_data)
+
+        vuln_lock.release()
+        plus="="*len(USER_TOKEN)
+        print("\x1b[1;34m\n==============================================================================={}\x1b[1;m".format(plus))
+        print("\x1b[1;34mIf you confirm Kube-Six report, Click This ==> http://hotsix.kro.kr/result.php?{}\x1b[1;m".format(USER_TOKEN))
+        print("\x1b[1;34m==============================================================================={}\x1b[1;m".format(plus))
