@@ -10,7 +10,7 @@ try:
 except NameError:
     raw_input = input
 
-loglevel = "INFO"
+#loglevel = "INF"
 logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='%H:%M:%S')
 
 parser = argparse.ArgumentParser(description='Doky - scans your Docker , also Kubernetes')
@@ -95,17 +95,17 @@ def main():
             print("\x1b[1;34m\n    ***Doky Login***\n\x1b[1;m")
         else:
             print("\x1b[1;34m\n    ***Doky Join***\n\x1b[1;m")
-            check_email = raw_input("\x1b[1;34m    Insert you email: \x1b[1;m")
-            check_pass = raw_input("\x1b[1;34m    Insert you password: \x1b[1;m")
-            res = requests.post(URL, data={'chk':'0.2', 'user_id': check_email, 'user_pass':check_pass})
-            if res.text == "O": #login, join success
-                email.set_email(check_email)
-                if check_exist == "O":
-                    check = raw_input("\x1b[1;34m    Overwrite? \x1b[1;m")
-                    if check == "y" : check = "O"
-                    else: return
-                else: 
-                    res = requests.post(URL, data={'chk':'0.3', 'user_id': check_email, 'overwrite':"O", 'temp':temp})
+        check_email = raw_input("\x1b[1;34m    Insert you email: \x1b[1;m")
+        check_pass = raw_input("\x1b[1;34m    Insert you password: \x1b[1;m")
+        res = requests.post(URL, data={'chk':'0.2', 'user_id': check_email, 'user_pass':check_pass})
+        if res.text == "O": #login, join success
+            email.set_email(check_email)
+            if check_exist == "O":
+                check = raw_input("\x1b[1;34m    Overwrite? \x1b[1;m")
+                if check == "y" : check = "O"
+                else: return
+            else: 
+                res = requests.post(URL, data={'chk':'0.3', 'user_id': check_email, 'overwrite':"O", 'temp':temp})
         
 
         global doky_work
