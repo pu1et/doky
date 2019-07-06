@@ -68,7 +68,6 @@ class CheckCVE20191002101(Vulnerability, Event):
 @works.hang(ApiServer)
 class CVEScanner(Scanner):
     def __init__(self, event):
-        print("\n\n\n\n\asdklasmldk\n\n\n")
         self.event = event
         self.event.auth_host = self.event.path 
         self.headers = dict()
