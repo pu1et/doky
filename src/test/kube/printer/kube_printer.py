@@ -256,10 +256,11 @@ class RealPrinter(BasePrinter):
             res = requests.post(URL, data=vuln_data)
 
         vuln_lock.release()
+        USER_TOKEN = "user_id="+USER_TOKEN
         plus="="*len(USER_TOKEN)
         print("\x1b[1;34m\n==============================================================================={}\x1b[1;m".format(plus))
         print("\x1b[1;34mIf you confirm Kube-Six report, Click This ==> http://hotsix.kro.kr/result.php?{}\x1b[1;m".format(USER_TOKEN))
-        print("\x1b[1;34m==============================================================================={}\x1b[1;m".format(plus))
+        print("\x1b[1;34m==============================================================================={}\n\n\x1b[1;m".format(plus))
 
     def send_auth_data(self):
 	USER_TOKEN = __main__.email.get_email()
@@ -293,7 +294,8 @@ class RealPrinter(BasePrinter):
             res = requests.post(URL, data=vuln_data)
 
         vuln_lock.release()
+        USER_TOKEN = "user_id="+USER_TOKEN
         plus="="*len(USER_TOKEN)
         print("\x1b[1;34m\n==============================================================================={}\x1b[1;m".format(plus))
         print("\x1b[1;34mIf you confirm Kube-Six report, Click This ==> http://hotsix.kro.kr/result.php?{}\x1b[1;m".format(USER_TOKEN))
-        print("\x1b[1;34m==============================================================================={}\x1b[1;m".format(plus))
+        print("\x1b[1;34m==============================================================================={}\n\n\x1b[1;m".format(plus))
