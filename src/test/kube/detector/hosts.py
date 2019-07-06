@@ -87,8 +87,6 @@ class HostDetector(Detector):
     def execute(self):
         for ip in self.iface_subnet():
             works.pick_point(NewHostEvent(host=ip))
-        if __main__.options.details:
-            print(__main__.options.details)
             for ip in self.pod_subnet():
                 works.pick_point(NewHostEvent(pod_host=ip))
 
@@ -152,7 +150,6 @@ class AuthDetector(Detector):
 
         if __main__.options.service == 'default' or __main__.options.service == None:
             self.service = subprocess.check_output("kubectl get secrets | grep ^{} | cut -f1 -d ''".format("default"),shell=True).split(' ')[0]
-            print(self.service)
         else : 
             self.service = __main__.options.service
         
