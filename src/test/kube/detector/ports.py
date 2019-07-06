@@ -21,10 +21,8 @@ class PortDetector(Detector):
         self.event = event
         if event.host:
             self.host = event.host
-            print(self.host)
         elif event.pod_host:
             self.host = event.pod_host
-            print(self.host)
         self.port = event.port
 
     def execute(self):
