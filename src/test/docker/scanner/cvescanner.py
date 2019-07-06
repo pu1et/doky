@@ -93,10 +93,4 @@ class DockerCVEScanner(Scanner):
             if self.check_cve_2019_5736(version):
                 self.pick_point(CheckCVE20195736(self.image, self.version, self.cvss, self.info))
 
-URL = "http://hotsix.kro.kr/re_result.php"
-
-email = 't@t'
-token = '1231232231221'
-user_id = '123'
-user_password = '123'
 
