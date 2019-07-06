@@ -81,7 +81,6 @@ class CVEScanner(Scanner):
             r = requests.get("{path}/version".format(path=self.path),headers=self.headers, verify=False)
             self.api_server_evidence = r.content
             resDict = ast.literal_eval(r.content)
-            print(resDict)
             version = resDict["gitVersion"].split('.')
             first_version = eval(version[1])
             last_version = eval(version[2])
