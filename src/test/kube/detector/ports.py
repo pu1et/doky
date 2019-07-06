@@ -35,7 +35,6 @@ class PortDetector(Detector):
                 if port == 80:
                     r = requests.get("http://{host}:{port}".format(host=self.host,port=port))
                     if r.status_code == 200 and r.text != '':
-                        print(r.text)
                         if "nginx" in r.text:
                             logging.debug("PodServer")
                             self.pick_point(PodServer("nginx"))
