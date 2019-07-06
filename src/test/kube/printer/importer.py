@@ -21,6 +21,7 @@ auth_lock = threading.Lock()
 auth_services = list()
 auth_pods = list()
 
+
 @works.hang(AuthPod)
 @works.hang(AuthService)
 @works.hang(AuthVulnerability)
@@ -56,10 +57,6 @@ class Importer(object):
             auth_services.append(self.event)
             auth_lock.release()
 
-#        elif AuthVulnerability in bases:
-#            vuln_lock.acquire()
-#            vulns.append(self.event)
-#            vuln_lock.release()
 
 @works.hang(DokyPrinter)
 class Printer(object):
@@ -69,4 +66,7 @@ class Printer(object):
     def execute(self):
         printer = __main__.printer.kube_printer()
         logging.info("\n{}\n".format("-"*10, printer))
-#        __main__.printer.send_data()
+        if __main__.options.token or __main__.options.service or __main.options.proxy:
+            __main__.printer.send_auth_data()
+        else: __main__.printer.send_data()
+        
