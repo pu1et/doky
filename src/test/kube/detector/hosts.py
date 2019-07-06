@@ -87,6 +87,7 @@ class HostDetector(Detector):
     def execute(self):
         for ip in self.iface_subnet():
             works.pick_point(NewHostEvent(host=ip))
+        if __main__.options.details:
             for ip in self.pod_subnet():
                 works.pick_point(NewHostEvent(pod_host=ip))
 
