@@ -8,7 +8,7 @@ import __main__
 from src.types import Detector
 from src.conf.objects import OpenPortEvent, Service, Event
 from src.conf.abcd import works
-from src.test.kube.detector.hosts import AuthDetector
+from src.test.kube.detector.auth import AuthDetector
 
 
 class ProxyScanEvent(Event):
@@ -56,6 +56,6 @@ class KubeProxy(Detector):
     def execute(self):
         if self.detect_kubeProxy():
             self.pick_point(KubeProxyEvent)
-            
+
 
 
