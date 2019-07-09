@@ -31,8 +31,8 @@ class DockerCVEScanner(Scanner):
         self.event = event
         self.image = self.event.image
         self.version = self.event.tag
-        self.cvss = "7.7"
-        self.info = "nothing"
+        self.cvss = "default"
+        self.info = "default"
 
     def get_image_version(self):
         if 'latest' in self.version:
@@ -48,6 +48,11 @@ class DockerCVEScanner(Scanner):
         second_v = eval(ver[1])
         third_v = eval(ver[2])
         return [first_v, second_v, third_v]
+    
+    def get_cve_data(self):
+        #URL = "hotsix.kro.kr/re_result.php"
+        #res = requests.post(URL, data={'chk':'0.4','image_name':self.image, 'image_ver':self.version})
+        #print(res.text)
     
     def check_cve_2017_7308(self, version):
         first_v = version[0]
@@ -83,6 +88,7 @@ class DockerCVEScanner(Scanner):
     
     def execute(self):
         version = self.get_image_version()
+        self.get_cve_data()
         if version:
             if self.check_cve_2017_7308(version):
                 self.pick_point(CheckCVE20177308(self.image, self.version, self.cvss, self.info))
