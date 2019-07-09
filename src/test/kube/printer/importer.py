@@ -3,8 +3,7 @@ import threading
 import __main__
 from src.conf.abcd import works
 from src.conf.objects import Event, Service, Vulnerability, DokyPrinter
-from src.test.kube.detector.hosts import AuthVulnerability,AuthPod,AuthService
-
+from src.test.kube.detector.auth import AuthVulnerability,AuthPod,AuthService
 
 global service_lock
 service_lock = threading.Lock()
@@ -65,7 +64,7 @@ class Printer(object):
 
     def execute(self):
         printer = __main__.printer.kube_printer()
-        logging.info("\n{}\n".format(printer))
+        #logging.info("\n{}\n".format("-"*10, printer))
         if __main__.options.token or __main__.options.service or __main__.options.proxy:
             __main__.printer.send_auth_data()
         else:
