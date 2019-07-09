@@ -66,8 +66,7 @@ class HostDetector(Detector):
 
     def pod_subnet(self):
         for iface in ifaceList:
-            if iface in notIface[1] or iface in notIface[3]:
-                print(iface)
+            if iface in notIface[3]:
                 for i in ifaddresses(ifaceList[iface]).setdefault(AF_INET,[]):
                     for ip in HostDetectorPreStart.generate_subnet('10.244.1.0','24'):
                         yield ip
