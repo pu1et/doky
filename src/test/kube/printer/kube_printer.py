@@ -1,7 +1,7 @@
 from __future__ import print_function
 from prettytable import ALL, PrettyTable
 import __main__
-from .importer import auth_lock,auth_pods,auth_services, services, scanners, vulns, works, service_lock, vuln_lock
+from .importer import auth_lock, auth_pods,auth_services, services, scanners, vulns, works, service_lock, vuln_lock
 import requests
 import logging
 
@@ -81,7 +81,7 @@ class RealPrinter(BasePrinter):
             if vuln_len:
                 output += self.vulns_table()
             else:
-                output += "\nThere's No Vulnerability"
+                output += "\n\x1b[1;34m    There's No Vulnerability\x1b[1;m"
 
         elif auth_services_len:
             output += self.auth_nodes_table()
@@ -90,9 +90,10 @@ class RealPrinter(BasePrinter):
             if vuln_len:
                 output += self.vulns_table()
             else:
-                output += 'Theres No Vulnerability'
+                output += "\x1b[1;34m    There's No Vulnerability\x1b[1;m"
         else:
-            print("\nThere's no cluster in your environment")
+            print("\n\x1b[1;34m    There's no cluster in your environment\x1b[1;m")
+        print(output)
         return output
 
     def auth_pods_table(self):
