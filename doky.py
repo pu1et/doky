@@ -10,8 +10,8 @@ try:
 except NameError:
     raw_input = input
 
-#loglevel = "INF"
-logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='%H:%M:%S')
+
+logging.basicConfig(level=logging.DEBUG, format='%(message)s', datefmt='%H:%M:%S')
 
 parser = argparse.ArgumentParser(description='Doky - scans your Docker , also Kubernetes')
 parser.add_argument('--details', action='store_true',help="scans the all pods in details")
@@ -34,7 +34,8 @@ else:
 
 from src.conf.abcd import works
 from src.conf.objects import DokyPrinter, DokyWorked
-from src.test.kube.detector.hosts import HostEvent, AuthScanEvent
+from src.test.kube.detector.hosts import HostEvent
+from src.test.kube.detector.auth import AuthScanEvent
 from src.test.kube.detector.apiserver import ApiServerDetector
 from src.test.kube.detector.ports import PortDetector
 from src.test.kube.printer.kube_printer import RealPrinter
@@ -101,7 +102,7 @@ def main():
         if res.text == "O": #login, join success
             email.set_email(check_email)
             if check_exist == "O":
-                check = raw_input("\x1b[1;34m    Overwrite? \x1b[1;m")
+                check = raw_input("\x1b[1;34m    Overwrite?(y/n) \x1b[1;m")
                 if check == "y" : check = "O"
                 else: return
             else: 
