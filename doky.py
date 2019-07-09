@@ -11,7 +11,7 @@ except NameError:
     raw_input = input
 
 
-logging.basicConfig(level=logging.DEBUG, format='%(message)s', datefmt='%H:%M:%S')
+logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='%H:%M:%S')
 
 parser = argparse.ArgumentParser(description='Doky - scans your Docker , also Kubernetes')
 parser.add_argument('--details', action='store_true',help="scans the all pods in details")
