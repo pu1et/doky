@@ -53,6 +53,7 @@ class DockerCVEScanner(Scanner):
         #URL = "hotsix.kro.kr/re_result.php"
         #res = requests.post(URL, data={'chk':'0.4','image_name':self.image, 'image_ver':self.version})
         #print(res.text)
+        pass
     
     def check_cve_2017_7308(self, version):
         first_v = version[0]
