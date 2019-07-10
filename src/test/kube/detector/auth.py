@@ -86,8 +86,8 @@ class AuthDetector(Detector):
                 else:
                     works.pick_point(AuthService("Service", service, image, host_ip, pod_ip))
                     
-            subprocess.call("kubectl delete ClusterRole prom-admin",shell=True)
-            subprocess.call("kubectl delete ClusterRoleBinding prom-rbac",shell=True)
+            subprocess.check_output("kubectl delete ClusterRole prom-admin",shell=True)
+            subprocess.check_output("kubectl delete ClusterRoleBinding prom-rbac",shell=True)
             
         except(requests.exceptions.ConnectionError, KeyError):
             print("error occured")
