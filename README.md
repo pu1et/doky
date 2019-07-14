@@ -25,7 +25,7 @@ __--docker__ : scan docker containers and Vulnerabilities only for docker
 
 </br>
 <h3>You can see the result of scan on this site</h3>
->> http://hotsix.kro.kr/index.php
+>> http://hotsix.kro.kr/
 </br>
 </br>
 
