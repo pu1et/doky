@@ -4,11 +4,12 @@
   You can scan your Nodes, Services, Vulnerabilities even Pods.</h2>
   
 <h3>use</h3>
- 
-  # git clone https://github.com/pu1et/doky/
-  # cd doky
-  # ./doky.py
 
+```
+# git clone https://github.com/pu1et/doky/
+# cd doky
+# ./doky.py
+```
 <h3>options</h3>
 
 default : scan Nodes, Services, Vulnerabilites
