@@ -2,6 +2,13 @@
 
 <h2>If you're running Docker, Kubernetes and both,</br> 
   You can scan your Nodes, Services, Vulnerabilities even Pods.</h2>
+  
+<h3>use</h3>
+ ```
+ # git clone https://github.com/pu1et/doky/
+ # cd doky
+ # ./doky.py
+ ```
 
 <h3>options</h3>
 
