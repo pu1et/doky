@@ -40,7 +40,7 @@ pytest==4.5.0
 pyxdg==0.25
 requests==2.22.0
 requests-mock==1.6.0
-rsa==4.0
+rsa==4.7
 ruamel.ordereddict==0.4.13
 ruamel.yaml==0.15.96
 scandir==1.10.0
