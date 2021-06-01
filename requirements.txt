@@ -48,6 +48,6 @@ scapy==2.4.3rc1
 SecretStorage==2.3.1
 six==1.12.0
 uritemplate==3.0.0
-urllib3==1.25.3
+urllib3==1.26.5
 wcwidth==0.1.7
 websocket-client==0.56.0
